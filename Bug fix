@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>موقعي - نظام تسجيل الدخول</title>
+    <style>
+        :root {
+            --primary-color: #256bfc;
+            --secondary-color: #1e56d0;
+            --accent-color: #ff4757;
+            --text-color: #333;
+            --white: #fff;
+            --light-gray: #f8f9fa;
+            --medium-gray: #dee2e6;
+            --dark-gray: #6c757d;
+            --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: var(--box-shadow);
+            width: 100%;
+            max-width: 450px;
+            overflow: hidden;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .header {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            opacity: 0.9;
+        }
+        
+        .form-container {
+            padding: 25px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #444;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--medium-gray);
+            border-radius: 8px;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(37, 117, 252, 0.2);
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+        
+        .message {
+            text-align: center;
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .error {
+            background-color: #ffebee;
+            color: #d32f2f;
+            border: 1px solid #ffcdd2;
+        }
+        
+        .success {
+            background-color: #e8f5e9;
+            color: #388e3c;
+            border: 1px solid #c8e6c9;
+        }
+        
+        .form-footer {
+            text-align: center;
+            margin-top: 25px;
+            color: var(--dark-gray);
+        }
+        
+        .form-footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .user-info {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .user-info h2 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .user-details {
+            background-color: var(--light-gray);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                border-radius: 10px;
+            }
+            
+            .header {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .form-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>مرحباً بك</h1>
+            <p>سجل الدخول للوصول إلى حسابك</p>
+        </div>
+        
+        <div class="form-container">
+            <div class="form-group">
+                <label for="username">اسم المستخدم</label>
+                <input type="text" id="username" placeholder="أدخل اسم المستخدم">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">كلمة المرور</label>
+                <input type="password" id="password" placeholder="أدخل كلمة المرور">
+            </div>
+            
+            <button class="btn" onclick="login()">
+                <span>تسجيل الدخول</span>
+            </button>
+            
+            <div id="message" class="message"></div>
+            
+            <div class="form-footer">
+                <p>ليس لديك حساب؟ <a onclick="showRegisterForm()">إنشاء حساب</a></p>
+            </div>
+        </div>
+        
+        <div class="form-container" id="registerForm" style="display: none;">
+            <div class="form-group">
+                <label for="newUsername">اسم المستخدم الجديد</label>
+                <input type="text" id="newUsername" placeholder="اختر اسم مستخدم">
+            </div>
+            
+            <div class="form-group">
+                <label for="newPassword">كلمة المرور الجديدة</label>
+                <input type="password" id="newPassword" placeholder="اختر كلمة مرور قوية">
+            </div>
+            
+            <div class="form-group">
+                <label for="confirmPassword">تأكيد كلمة المرور</label>
+                <input type="password" id="confirmPassword" placeholder="أعد إدخال كلمة المرور">
+            </div>
+            
+            <button class="btn" onclick="register()">
+                <span>إنشاء حساب</span>
+            </button>
+            
+            <div class="form-footer">
+                <p>لديك حساب بالفعل؟ <a onclick="showLoginForm()">تسجيل الدخول</a></p>
+            </div>
+        </div>
+        
+        <div class="user-info" id="userInfo">
+            <h2>مرحباً, <span id="userName"></span>!</h2>
+            <div class="user-details">
+                <p>لقد سجلت الدخول بنجاح إلى حسابك.</p>
+            </div>
+            <button class="btn btn-outline" onclick="logout()">
+                <span>تسجيل الخروج</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // بيانات المستخدمين (سيتم حفظها في localStorage)
+        let users = JSON.parse(localStorage.getItem('users')) || {};
+        
+        // عناصر DOM
+        const messageEl = document.getElementById('message');
+        const loginForm = document.querySelector('.form-container');
+        const registerForm = document.getElementById('registerForm');
+        const userInfo = document.getElementById('userInfo');
+        const userNameEl = document.getElementById('userName');
+        
+        // عرض رسالة للمستخدم
+        function showMessage(text, type) {
+            messageEl.textContent = text;
+            messageEl.className = 'message ' + type;
+            messageEl.style.display = 'block';
+            
+            // إخفاء الرسالة بعد 5 ثواني
+            setTimeout(() => {
+                messageEl.style.display = 'none';
+            }, 5000);
+        }
+        
+        // تسجيل الدخول
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (!username || !password) {
+                showMessage('يرجى ملء جميع الحقول', 'error');
+                return;
+            }
+            
+            if (users[username] && users[username] === password) {
+                showMessage('تم تسجيل الدخول بنجاح!', 'success');
+                
+                // حفظ حالة تسجيل الدخول
+                localStorage.setItem('currentUser', username);
+                
+                // إخفاء نموذج التسجيل وإظهار معلومات المستخدم
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'none';
+                userInfo.style.display = 'block';
+                userNameEl.textContent = username;
+            } else {
+                showMessage('اسم المستخدم أو كلمة المرور غير صحيحة', 'error');
+            }
+        }
+        
+        // تسجيل مستخدم جديد
+        function register() {
+            const username = document.getElementById('newUsername').value;
+            const password = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (!username || !password || !confirmPassword) {
+                showMessage('يرجى ملء جميع الحقول', 'error');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                showMessage('كلمتا المرور غير متطابقتين', 'error');
+                return;
+            }
+            
+            if (users[username]) {
+                showMessage('اسم المستخدم موجود مسبقاً', 'error');
+                return;
+            }
+            
+            // إضافة المستخدم الجديد
+            users[username] = password;
+            localStorage.setItem('users', JSON.stringify(users));
+            
+            showMessage('تم إنشاء حسابك بنجاح! يمكنك تسجيل الدخول الآن', 'success');
+            showLoginForm();
+        }
+        
+        // تسجيل الخروج
+        function logout() {
+            localStorage.removeItem('currentUser');
+            userInfo.style.display = 'none';
+            loginForm.style.display = 'block';
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+        }
+        
+        // عرض نموذج التسجيل
+        function showRegisterForm() {
+            loginForm.style.display = 'none';
+            registerForm.style.display = 'block';
+            document.getElementById('newUsername').value = '';
+            document.getElementById('newPassword').value = '';
+            document.getElementById('confirmPassword').value = '';
+        }
+        
+        // عرض نموذج تسجيل الدخول
+        function showLoginForm() {
+            registerForm.style.display = 'none';
+            loginForm.style.display = 'block';
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+        }
+        
+        // التحقق من وجود مستخدم مسجل دخوله
+        function checkLogin() {
+            const currentUser = localStorage.getItem('currentUser');
+            if (currentUser) {
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'none';
+                userInfo.style.display = 'block';
+                userNameEl.textContent = currentUser;
+            }
+        }
+        
+        // تهيئة الصفحة عند التحميل
+        window.onload = function() {
+            checkLogin();
+        };
+    </script>
+</body>
+</html>
